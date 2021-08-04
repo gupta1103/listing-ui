@@ -50,12 +50,14 @@ class ViewController: UIViewController {
                 let jsonData = try JSONDecoder().decode(FiltersModel.self, from: data!)
                 if let filterDetail = jsonData.data?.categories
                 {
-                    DispatchQueue.main.async {
-                        self.categoryDetail = filterDetail
-                        print(self.categoryDetail)
-                        self.myCollectionView.reloadData()
+                    if let excludeList = jsonData.data?.exclude_list{
+                        DispatchQueue.main.async {
+                            self.categoryDetail = filterDetail
+                            self.excludeListDetail = excludeList
+//                            print(self.excludeListDetail)
+                            self.myCollectionView.reloadData()
+                        }
                     }
-                }
                 completion(nil)
 
             }
